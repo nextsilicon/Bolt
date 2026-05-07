@@ -18,9 +18,10 @@ It will even keep reminding the participants to pay until they've marked themsel
 * Monitor closed venues and receive updates once they are open
 
 ## Installation
-To install, you need an endpoint running Bolt server and a Slack app.
+To install, you need a machine running Bolt and a Slack app.
+Bolt uses [Socket Mode](https://api.slack.com/apis/connections/socket) — it opens an outbound WebSocket connection to Slack, so no public IP address or open port is required.
 I provided a deployment for Kubernetes with all the necessary configuration to run Bolt,
-but you may run it wherever you want as long as it has a static IP / DNS leading to Bolt.
+but you may run it anywhere with outbound internet access.
 
 Here are the basic steps to install Bolt:
 1. Deploy Bolt Slack app. [See detailed instructions here](docs/installation/slack_app.md).

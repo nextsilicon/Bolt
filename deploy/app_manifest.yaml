@@ -7,7 +7,6 @@ features:
     always_online: true
   slash_commands:
     - command: /add-user
-      url: http://<static_ip>/add-user
       description: Add a custom user to the DB
       usage_hint: '"Lorem Ipsum" @Lorem'
       should_escape: false
@@ -29,11 +28,10 @@ oauth_config:
       - commands
 settings:
   event_subscriptions:
-    request_url: http://<static_ip>/events-endpoint
     bot_events:
       - app_mention
       - link_shared
       - reaction_added
   org_deploy_enabled: false
-  socket_mode_enabled: false
+  socket_mode_enabled: true
   token_rotation_enabled: false

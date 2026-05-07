@@ -14,7 +14,7 @@ metadata:
     app: bolt
 data:
   SLACK_OAUTH_TOKEN: <slack_oauth_token_base64>
-  SLACK_SIGNIN_SECRET: <slack_signin_secret_base64>
+  SLACK_APP_TOKEN: <slack_app_token_base64>
 ---
 # Persistent Volume Claim
 apiVersion: v1
@@ -56,19 +56,15 @@ spec:
   selector:
     matchLabels:
       app: bolt
-      tier: web
   template:
     metadata:
       labels:
         app: bolt
-        tier: web
     spec:
       containers:
         - name: bolt-app
           image: oriser/bolt
           imagePullPolicy: Always
-          ports:
-            - containerPort: 8080
           envFrom:
             - secretRef:
                 name: slack-secret
@@ -81,21 +77,3 @@ spec:
         - name: sqlite-storage
           persistentVolumeClaim:
             claimName: bolt-storage
----
-# Service
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: bolt
-  name: bolt
-  labels:
-    app: bolt
-spec:
-  selector:
-    app: bolt
-    tier: web
-  ports:
-    - port: 80
-      targetPort: 8080
-  type: LoadBalancer
-  loadBalancerIP: "<static_ip>"
